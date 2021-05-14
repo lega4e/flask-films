@@ -1,0 +1,106 @@
+<!-- Шаблон формы поиска -->
+
+<div id=search-turn>
+	<input id="search-switcher" type="button" value="Показать параметры поиска" onclick='switch_search()'>
+	<a href='common'> Сбросить поиск </a>
+</div>
+
+
+<form id=search method='post' hidden>
+
+	<table>
+
+		{% if types %}
+		<tr id=type-tr>
+			<td>Тип:</td>
+			<td>
+				<select class=type-select id=type-select name='type'>
+					{% for type in types %}
+					<option value="{{ type }}" {{ 'selected="selected"' if sets.atype == type }}> {{ type }} </option>
+					{% endfor %}
+				</select>
+			</td>
+		</tr>
+		{% endif %}
+
+		{% if genres %}
+		<tr id=genre-tr>
+			<td>Жанр:</td>
+			<td>
+				<select class=genre-select id=genre-select name='genre'>
+					{% for genre in genres %}
+						<option value="{{ genre }}" {{ 'selected="selected"' if sets.genre == genre }}> {{ genre }} </option>
+					{% endfor %}
+				</select>
+			</td>
+		</tr>
+		{% endif %}
+
+		<tr>
+			<td>
+				Год:
+			</td>
+			<td collspan=3>
+				от <input id=min-year name='min-year' type=number value="{{ sets.minyear }}">
+				до <input id=max-year name='max-year' type=number value="{{ sets.maxyear }}">
+			</td>
+		</tr>
+
+		{% if tags %}
+		<tr>
+			<td> Тег: </td>
+			<td>
+				<select class=tag-select id=tag-select name='tag'>
+					{% for tag in tags %}
+					<option value="{{ tag }}" {{ 'selected="selected"' if sets.tag == tag }}> {{ tag }} </option>
+					{% endfor %}
+				</select>
+			</td>
+		</tr>
+		{% endif %}
+
+		{% if countries %}
+		<tr>
+			<td> Страна: </td>
+			<td>
+				<select class=country-select id=country-select name='country'>
+					{% for country in countries %}
+					<option value="{{ country }}" {{ 'selected="selected"' if sets.country == country }}>
+						{{ country }}
+					</option>
+					{% endfor %}
+				</select>
+			</td>
+		</tr>
+		{% endif %}
+
+		{% if sorting %}
+		<tr>
+			<td> Сортировка: </td>
+			<td>
+				<select class=sorting-select id=sorting-select name='sorting'>
+					{% for s in sorting %}
+					<option value="{{ s }}" {{ 'selected="selected"' if sets.sorting == s }}> {{ s }} </option>
+					{% endfor %}
+				</select>
+			</td>
+		</tr>
+		{% endif %}
+
+		<tr>
+			<td> На странице: </td>
+			<td>
+				<input type="number" name="limit" value="{{ sets.limit }}">
+			</td>
+		</tr>
+
+	</table>
+
+	<input type='submit' value='Найти'>
+</form>
+
+<p id='search-hint'>
+	{{ search_hint }}
+</p>
+
+<p> Всего: {{ work_count }} </p>

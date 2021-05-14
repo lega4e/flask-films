@@ -1,0 +1,15 @@
+<!-- Шаблон строки навигации -->
+
+<nav>
+	<div><a href="/common"> Общий рейтинг </a></div>
+	<div><a href="/"> О сайте </a></div>
+	<div>
+		<a> Поиск по названиям: </a>
+		<input id=search-input type="text" style='width: 150px; font-size: 8pt; height: 10px;'>
+		<input
+			type="button"
+			value='Найти'
+			onclick='window.open(`/search_text?text=${getElementById("search-input").value}`, "_self")'
+		>
+	</div>
+</nav>

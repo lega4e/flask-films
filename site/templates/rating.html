@@ -1,0 +1,78 @@
+<!-- Шаблон страницы рейтинга -->
+
+{% extends "layout.html" %}
+
+{% block content %}
+
+{% include 'search.html' %}
+
+{% macro page_switch() %}
+<div class='page-switch'>
+	<span class='prev-page'>
+	{% if prev_offset %}
+		<a href="common?offset={{prev_offset.v}}&limit={{sets.limit}}{{ '&token='+token.v if token }}">
+			С {{prev_offset.v+1}} по {{prev_offset.v+sets.limit}}
+		</a>
+	{% endif %}
+	</span>
+
+	<span class=pagelist-span>
+		{% if pagelist %}
+			{% for page in pagelist %}
+				{% if page.type == 'page' %}
+				<a href="common?offset={{page.offset}}&limit={{page.limit}}{{ '&token='+page.token if page.token }}">
+					{% if page.iscur %}
+					<b> {{ page.num }} </b>
+					{% else %}
+					{{ page.num }}
+					{% endif %}
+				</a>
+				{% else %}
+				 ... 
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+	</span>
+
+	<span class='next-page'>
+	{% if next_offset %}
+		<a href="common?offset={{next_offset.v}}&limit={{sets.limit}}{{ '&token='+token.v if token }}">
+			С {{next_offset.v+1}} по {{next_offset.v+next_limit.v}}
+		</a>
+	{% endif %}
+	</span>
+</div>
+{% endmacro %}
+
+<div class=sep>  </div>
+
+{{ page_switch() }}
+
+{% if works|length != 0 %}
+<table class=rating>
+	<tr>
+		<th>№</th>
+		<th>Название</th>
+		<th>Страна</th>
+		<th>Год</th>
+		<th>Оценка</th>
+		<th>Голосов</th>
+	</tr>
+	{% for w in works %}
+	<tr>
+		<td> {{ w.num    }} </td>
+		<td> <a href="work?id={{w.work_id}}"> {{ w.name   }} </a> </td>
+		<td> {{ w.cntry  }} </td>
+		<td> {{ w.year   }} </td>
+		<td> {{ w.bscore }} </td>
+		<td> {{ w.voted  }} </td>
+	</tr>
+	{% endfor %}
+</table>
+{% endif %}
+
+{% if works|length >= 10 %}
+{{ page_switch() }}
+{% endif %}
+
+{% endblock %}
