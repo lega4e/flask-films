@@ -77,12 +77,12 @@ def get_rating(sets, token=None):
 
 	# Вариант с токеном
 	if token:
-		extra = [ extra for extra in last_queries if extra.token == token ]
-		if len(extra) == 0:
+		extra_list = [ extra for extra in last_queries if extra.token == token ]
+		if len(extra_list) == 0:
 			print('Expired token')
 			extra.token = None
 		else:
-			extra = extra[0]
+			extra = extra_list[0]
 
 
 	# Если токена нет или он просрочен

@@ -32,8 +32,10 @@ work:
 
 
 	<table id="chars">
-		{% if work.name %}
+		{% if work.name and work.name != 'NONE' %}
 		<tr><td id='name' colspan=2> {{ work.name }} </td></tr>
+		{% elif work.name and work.name == 'NONE' %}
+		<tr><td id='name' colspan=2> Название отсутствует </td></tr>
 		{% endif %}
 
 		{% if work.cntry %}
@@ -93,14 +95,14 @@ work:
 		</tr>
 		{% endif %}
 
-		{% if work.drctr %}
+		{% if work.drctr and work.drctr != 'NONE' %}
 		<tr>
 			<td> Режиссёр </td>
 			<td> <a href="search?director={{work.drctr}}"> {{ work.drctr }} </a> </td>
 		</tr>
 		{% endif %}
 
-		{% if work.anidea %}
+		{% if work.anidea and work.anidea != 'NONE' %}
 		<tr>
 			<td> Автор идеи </td>
 			<td> <a href="search?idea={{work.anidea}}"> {{ work.anidea }} </a> </td>

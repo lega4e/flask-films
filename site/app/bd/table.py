@@ -32,14 +32,22 @@ Base = declarative_base(engine)
 class Work(Base):
 	__tablename__ = 'work'
 	work_id     = Column(Integer, nullable=False, primary_key=True)
-	name        = Column(String(120))
+	name        = Column(String(120), nullable=False)
 	year        = Column(Integer)
 	atype       = Column(String(120))
 	dur         = Column(Integer)
 	epsc        = Column(Integer)
 	base        = Column(String(60))
-	director_id = Column(Integer, ForeignKey('director.director_id'))
-	idea_id     = Column(Integer, ForeignKey('idea.idea_id'))
+	director_id = Column(
+		Integer,
+		ForeignKey('director.director_id'),
+		nullable=False, default=-1
+	)
+	idea_id     = Column(
+		Integer,
+		ForeignKey('idea.idea_id'),
+		nullable=False, default=-1
+	)
 	score       = Column(Float)       # hidden
 	bscore      = Column(Float)       # hidden
 	voted       = Column(Integer)     # hidden
@@ -62,6 +70,10 @@ class Work(Base):
 
 ############################################################
 # Create country table
+# nullable:
+# - dur
+# - epsc
+# - base
 class Country(Base):
 	__tablename__ = 'country'
 	country_id = Column(Integer,    primary_key=True)
